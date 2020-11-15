@@ -1,3 +1,6 @@
+import Home from "./home.js";
+import { sound } from "./../data/sound.js";
+
 const Game = (() => {
   /* Setup State */
   const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -23,6 +26,22 @@ const Game = (() => {
 
     /* Render initial Game screen */
     showInitPage();
+    listeners();
+  }
+
+  const listeners = () => {
+    $hangman.addEventListener("click", (event) => {
+      if (event.target.matches(".hangman__letter")) {
+        sound.click.play();
+        // check(event.target.innerHTML);
+        console.log(event.target.innerHTML);
+      }
+
+      if (event.target.matches(".hangman__trigger")) {
+        sound.click.play();
+        Home.init();
+      }
+    })
   }
 
   const showInitPage = () => {
@@ -38,8 +57,7 @@ const Game = (() => {
         ${createLetters()}
       </ul>
       <button class="button hangman__trigger">Main Menu</button>
-    `
-
+    `;
     $hangman.innerHTML = markup;
   }
 
@@ -58,11 +76,6 @@ const Game = (() => {
   const chooseWord = () => {
     return words[Math.floor((Math.random() * words.length))];
   }
-
-  /*
-    1. choose a random word chosenWord = chooseWord(); // apple
-    2.  We'll also need a guessingWord that is constantly updated and re-rendered as the user selects letters
-  */
 
   return {
     init: init
