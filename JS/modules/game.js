@@ -32,14 +32,67 @@ const Game = (() => {
   const listeners = () => {
     $hangman.addEventListener("click", (event) => {
       if (event.target.matches(".hangman__letter")) {
-        sound.click.play();
-        // check(event.target.innerHTML);
-        console.log(event.target.innerHTML);
+        check(event.target.innerHTML);
+        /* After the letter's clicked, gray it out */
+        event.target.classList.add("hangman__letter--active");
       }
 
       if (event.target.matches(".hangman__trigger")) {
         sound.click.play();
         Home.init();
+      }
+    })
+  }
+
+  const isAlreadyTaken = (letter) => {
+    return guessedLetters.includes(letter);
+  }
+
+  const check = (guess) => {
+    if (isAlreadyTaken(guess)) return;
+    sound.click.play();
+    
+    /* If not already taken, push to guessedLetters */
+    guessedLetters.push(guess);
+
+    /* Check if the guess exists in chosenWord */
+    if (chosenWord.includes(guess)) {
+      /* Update the guessing word */
+      updateGuessingWord(guess);
+    } else {
+      lives--;
+    }
+
+    render();
+    /* Check if the game's over */
+    isGameOver();
+  }
+
+  const hasWon = () => guessingWord.join("") === chosenWord;
+  const hasLost = () => lives <= 0;
+
+  const isGameOver = () => {
+    /* Win condition */
+    if (hasWon()) {
+      alert("You win");
+    }
+
+    /* Lose condition */
+    if (hasLost()) {
+      alert("You lose!");
+    }
+  }
+
+  const render = () => {
+    document.querySelector(".hangman__lives").innerHTML = lives;
+    document.querySelector(".hangman__word").innerHTML = guessingWord.join(""); // convert guessingWord back into a string
+  }
+
+  const updateGuessingWord = (letter) => {
+    /* We split the chosenWord into an Array in order to use .forEach() */
+    chosenWord.split("").forEach((elem, index) => {
+      if (elem === letter) {
+        guessingWord[index] = elem;
       }
     })
   }
