@@ -1,6 +1,7 @@
 import Home from "./home.js";
 import { sound } from "./../data/sound.js";
 import End from "./end.js";
+import Board from "./board.js";
 
 const Game = (() => {
   /* Setup State */
@@ -28,6 +29,7 @@ const Game = (() => {
     /* Render initial Game screen */
     showInitPage();
     listeners();
+    Board.init();
   }
 
   const listeners = () => {
@@ -62,6 +64,7 @@ const Game = (() => {
       updateGuessingWord(guess);
     } else {
       lives--;
+      Board.setLives(lives);
     }
 
     render();
