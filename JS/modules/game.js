@@ -1,5 +1,6 @@
 import Home from "./home.js";
 import { sound } from "./../data/sound.js";
+import End from "./end.js";
 
 const Game = (() => {
   /* Setup State */
@@ -74,12 +75,20 @@ const Game = (() => {
   const isGameOver = () => {
     /* Win condition */
     if (hasWon()) {
-      alert("You win");
+      sound.win.play();
+      End.setState({
+        chosenWord: chosenWord,
+        winOrLose: "win"
+      });
     }
 
     /* Lose condition */
     if (hasLost()) {
-      alert("You lose!");
+      sound.lose.play();
+      End.setState({
+        chosenWord: chosenWord,
+        winOrLose: "lose"
+      });
     }
   }
 
