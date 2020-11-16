@@ -16,6 +16,7 @@ const Game = (() => {
   const $hangman = document.querySelector(".hangman");
 
   const init = () => {
+
     /* Choose a word */
     chosenWord = chooseWord();
 
@@ -30,6 +31,8 @@ const Game = (() => {
     showInitPage();
     listeners();
     Board.init();
+    sound.elevator.volume = 0.5;
+    sound.elevator.play();
   }
 
   const listeners = () => {
@@ -42,6 +45,7 @@ const Game = (() => {
 
       if (event.target.matches(".hangman__trigger")) {
         sound.click.play();
+        sound.win.pause();
         Home.init();
       }
     })
@@ -53,6 +57,7 @@ const Game = (() => {
 
   const check = (guess) => {
     if (isAlreadyTaken(guess)) return;
+
     sound.click.play();
     
     /* If not already taken, push to guessedLetters */
@@ -76,6 +81,8 @@ const Game = (() => {
   const hasLost = () => lives <= 0;
 
   const isGameOver = () => {
+    sound.elevator.pause();
+
     /* Win condition */
     if (hasWon()) {
       sound.win.play();

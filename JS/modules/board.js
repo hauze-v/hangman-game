@@ -1,3 +1,5 @@
+import { sound } from "./../data/sound.js";
+
 /* Revealing module pattern */
 const Board = (() => {
   /* State */
@@ -42,15 +44,15 @@ const Board = (() => {
   const rightLeg = () => draw(60, 90, 100, 120);
   const leftLeg = () => draw(60, 90, 20, 120);
 
+  const parts = [rightLeg, leftLeg, rightArm, leftArm, torso, head, rope];
+
+  const render = () => {
+    parts[livesLeft]();
+  }
+
   const setLives = (newLives) => {
     livesLeft = newLives;
-    rope();
-    head();
-    torso();
-    rightArm();
-    leftArm();
-    rightLeg();
-    leftLeg();
+    render();
   }
 
   return {
