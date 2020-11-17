@@ -1,12 +1,13 @@
 import Home from "./home.js";
 import { sound } from "./../data/sound.js";
+import { word } from "./../data/words.js";
 import End from "./end.js";
 import Board from "./board.js";
 
 const Game = (() => {
   /* Setup State */
   const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-  const words = ["apple", "ball", "cat", "elephant", "cat", "dog", "test"];
+  const words = word.words;
   let chosenWord;
   let guessingWord;
   let lives;
