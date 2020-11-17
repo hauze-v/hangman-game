@@ -16,6 +16,10 @@ const Game = (() => {
   const $hangman = document.querySelector(".hangman");
 
   const init = () => {
+    /* Start music */
+    sound.elevator.volume = 0.5;
+    sound.elevator.currentTime = 0;
+    playSound(sound.elevator);
 
     /* Choose a word */
     chosenWord = chooseWord();
@@ -31,8 +35,6 @@ const Game = (() => {
     showInitPage();
     listeners();
     Board.init();
-    sound.elevator.volume = 0.5;
-    sound.elevator.play();
   }
 
   const listeners = () => {
@@ -44,11 +46,16 @@ const Game = (() => {
       }
 
       if (event.target.matches(".hangman__trigger")) {
-        sound.click.play();
+        sound.elevator.pause();
+        playSound(sound.click);
         sound.win.pause();
         Home.init();
       }
     })
+  }
+
+  const playSound = (sound) => {
+    sound.play();
   }
 
   const isAlreadyTaken = (letter) => {
@@ -58,7 +65,7 @@ const Game = (() => {
   const check = (guess) => {
     if (isAlreadyTaken(guess)) return;
 
-    sound.click.play();
+    playSound(sound.click);
     
     /* If not already taken, push to guessedLetters */
     guessedLetters.push(guess);
@@ -81,11 +88,10 @@ const Game = (() => {
   const hasLost = () => lives <= 0;
 
   const isGameOver = () => {
-    sound.elevator.pause();
-
     /* Win condition */
     if (hasWon()) {
-      sound.win.play();
+      sound.elevator.pause();
+      playSound(sound.win);
       End.setState({
         chosenWord: chosenWord,
         winOrLose: "win"
@@ -94,7 +100,8 @@ const Game = (() => {
 
     /* Lose condition */
     if (hasLost()) {
-      sound.lose.play();
+      sound.elevator.pause();
+      playSound(sound.fail);
       End.setState({
         chosenWord: chosenWord,
         winOrLose: "lose"

@@ -23,7 +23,6 @@ const End = (() => {
       The word was ${state.chosenWord.toUpperCase()}.</p>
       <button class="button hangman__trigger">Main Menu</button>
     `
-
     $hangman.innerHTML = markup;
   }
 
