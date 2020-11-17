@@ -19,7 +19,7 @@ const End = (() => {
   const render = () => {
     let markup = `
       <h1 class="hangman__title">GAME OVER</h1>
-      <p class="result">You ${state.winOrLose.toUpperCase()}! <br> <br>
+      <p class="result">You 👉 ${state.winOrLose.toUpperCase()}! <br> <br>
       The word was ${state.chosenWord.toUpperCase()}.</p>
       <button class="button hangman__trigger">Main Menu</button>
     `
@@ -28,7 +28,7 @@ const End = (() => {
   }
 
   return {
-    setState: setState
+    setState
   }
 
 

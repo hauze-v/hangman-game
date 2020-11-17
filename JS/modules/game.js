@@ -19,7 +19,7 @@ const Game = (() => {
 
     /* Choose a word */
     chosenWord = chooseWord();
-
+ 
     /* Build out our own guessing word to render */
     guessingWord = Array(chosenWord.length).fill("_"); // creates an Array of length chosenWord.length and fills it with underscores
 
