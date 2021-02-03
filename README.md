@@ -1,3 +1,3 @@
-# hangman-game
+# Play it now!
 
-Play the game live here: https://hauze-v.github.io/hangman-game/
+Here: https://hauze-v.github.io/hangman-game/
